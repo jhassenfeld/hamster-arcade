@@ -1,0 +1,100 @@
+.shop-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.shop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: white;
+  border-bottom: 2px solid var(--pink-light);
+}
+
+.shop-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 0.5rem 0;
+  background: white;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.shop-tab {
+  flex: 1;
+  padding: 0.5rem 0.5rem;
+  border: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--pink-light);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shop-tab-active {
+  background: var(--pink);
+  font-weight: 700;
+}
+
+.shop-items {
+  flex: 1;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.shop-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.shop-item-icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.shop-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.shop-item-info h3 {
+  font-size: 0.95rem;
+}
+
+.shop-item-desc {
+  font-size: 0.75rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.shop-item-effect {
+  font-size: 0.7rem;
+  color: var(--blue-dark);
+  font-weight: 600;
+}
+
+.shop-item-owned {
+  font-size: 0.7rem;
+  color: var(--pink-dark);
+  font-weight: 600;
+}
+
+.shop-hamster-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

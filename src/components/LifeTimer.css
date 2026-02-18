@@ -1,0 +1,51 @@
+.life-timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blue-light);
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+}
+
+.life-timer-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.life-timer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.life-timer-time {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.life-timer-label {
+  font-size: 0.55rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.life-timer-warning {
+  background: #FFF3CD;
+}
+
+.life-timer-warning .life-timer-time {
+  color: #856404;
+}
+
+.life-timer-urgent {
+  background: #FFE0E6;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.life-timer-urgent .life-timer-time {
+  color: var(--danger);
+}

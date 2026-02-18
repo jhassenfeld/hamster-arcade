@@ -1,0 +1,93 @@
+.arcade-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.arcade-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: white;
+  border-bottom: 2px solid var(--pink-light);
+}
+
+.arcade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+  flex: 1;
+}
+
+@media (min-width: 600px) {
+  .arcade-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.arcade-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1rem 0.75rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.1s;
+  background: linear-gradient(135deg, var(--pink-light), var(--blue-light));
+  text-align: center;
+}
+
+.arcade-card:hover:not(:disabled) {
+  border-color: var(--pink);
+  transform: translateY(-2px);
+}
+
+.arcade-card:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.arcade-card:disabled {
+  cursor: not-allowed;
+}
+
+.arcade-card-coming {
+  opacity: 0.5;
+}
+
+.arcade-card-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.arcade-card h3 {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.arcade-card-desc {
+  font-size: 0.75rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.arcade-card-score {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pink-dark);
+}
+
+.arcade-card-rate {
+  font-size: 0.7rem;
+  color: var(--blue-dark);
+}
+
+.arcade-card-coming-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0.5;
+  font-style: italic;
+}

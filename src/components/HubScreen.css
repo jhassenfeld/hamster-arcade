@@ -1,0 +1,25 @@
+.hub-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.hub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: white;
+  border-bottom: 2px solid var(--pink-light);
+}
+
+.hub-title {
+  color: var(--pink-dark);
+  font-size: 1.4rem;
+}
+
+.hub-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

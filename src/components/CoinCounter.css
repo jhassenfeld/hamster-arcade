@@ -1,0 +1,22 @@
+.coin-counter {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: white;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  font-weight: 700;
+  font-size: 0.95rem;
+  z-index: 10;
+}
+
+.coin-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.coin-amount {
+  color: var(--text);
+  min-width: 2ch;
+}

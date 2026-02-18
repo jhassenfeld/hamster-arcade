@@ -1,0 +1,147 @@
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background: #1a1a3e;
+  position: relative;
+}
+
+.game-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.game-highscore {
+  color: var(--blue-light);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.game-canvas-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+}
+
+.game-canvas {
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: pixelated;
+  touch-action: none;
+}
+
+/* Touch controls */
+.touch-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.touch-dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.touch-dpad-row {
+  display: flex;
+  gap: 28px;
+}
+
+.touch-btn {
+  width: 48px;
+  height: 48px;
+  border: 2px solid rgba(255, 182, 193, 0.5);
+  border-radius: 12px;
+  background: rgba(255, 182, 193, 0.15);
+  color: rgba(255, 182, 193, 0.8);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.touch-btn:active {
+  background: rgba(255, 182, 193, 0.35);
+  border-color: rgba(255, 182, 193, 0.8);
+}
+
+.touch-fire {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  border-color: rgba(255, 107, 138, 0.5);
+  background: rgba(255, 107, 138, 0.15);
+}
+
+.touch-fire:active {
+  background: rgba(255, 107, 138, 0.35);
+  border-color: rgba(255, 107, 138, 0.8);
+}
+
+/* Game over overlay */
+.game-over-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 20;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.game-over-card {
+  text-align: center;
+  min-width: 260px;
+  padding: 1.5rem;
+}
+
+.game-over-card h2 {
+  color: var(--pink-dark);
+  margin-bottom: 0.5rem;
+}
+
+.game-over-card p {
+  margin: 0.3rem 0;
+}
+
+.new-highscore {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.game-over-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}

@@ -1,0 +1,174 @@
+/* Room container */
+.habitat {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+  overflow: hidden;
+  /* Wall */
+  background:
+    /* Wallpaper subtle stripe pattern */
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 48px,
+      rgba(255, 220, 230, 0.15) 48px,
+      rgba(255, 220, 230, 0.15) 50px
+    ),
+    /* Wall color — warm cream */
+    linear-gradient(180deg, #FFF8F0 0%, #FFF0E6 70%, #F5E6D3 100%);
+}
+
+/* Baseboard trim along bottom of wall */
+.habitat-baseboard {
+  position: absolute;
+  bottom: 28%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #C4956A;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Wooden floor */
+.habitat-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28%;
+  /* Wood plank look */
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 80px,
+      rgba(0,0,0,0.04) 80px,
+      rgba(0,0,0,0.04) 82px
+    ),
+    linear-gradient(180deg, #DEB887 0%, #D2A679 50%, #C8976B 100%);
+  pointer-events: none;
+}
+
+/* Window on the wall */
+.habitat-window {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 70px;
+  background: linear-gradient(180deg, #87CEEB 0%, #B0E0FF 100%);
+  border: 6px solid #C4956A;
+  border-radius: 4px;
+  box-shadow: inset 0 0 15px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Window crossbar */
+.habitat-window::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #C4956A;
+  transform: translateY(-50%);
+}
+
+.habitat-window::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #C4956A;
+  transform: translateX(-50%);
+}
+
+/* Hamster positioning — draggable */
+.habitat-hamster {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  z-index: 3;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.habitat-hamster:hover {
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.habitat-hamster.dragging {
+  cursor: grabbing;
+  z-index: 10;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+  transform: translate(-50%, -50%) scale(1.08);
+  transition: filter 0.1s ease;
+}
+
+/* Gravestones */
+.habitat-grave {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.grave-marker {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.grave-name {
+  font-size: 0.6rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+/* Owned toy decorations — BIG, draggable */
+.habitat-toy {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 7.5rem;
+  line-height: 1;
+  z-index: 1;
+  cursor: grab;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  opacity: 0.85;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.1s ease, filter 0.2s ease;
+}
+
+.habitat-toy:hover {
+  opacity: 1;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.habitat-toy.dragging {
+  cursor: grabbing;
+  opacity: 1;
+  z-index: 10;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35));
+  transform: translate(-50%, -50%) scale(1.12);
+  transition: filter 0.1s ease;
+}

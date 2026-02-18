@@ -1,0 +1,117 @@
+.mini-habitat-overlay {
+  position: absolute;
+  top: 44px;
+  right: 6px;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.mini-habitat-inner {
+  display: flex;
+  gap: 4px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 182, 193, 0.3);
+  position: relative;
+}
+
+.mini-hamster {
+  transition: transform 0.2s;
+}
+
+/* Reaction animations */
+.mini-anim-jump {
+  animation: mini-jump 0.4s ease-in-out 2;
+}
+
+.mini-anim-cover-eyes {
+  animation: mini-shake 0.3s ease-in-out 3;
+}
+
+.mini-anim-cheer {
+  animation: mini-jump 0.3s ease-in-out 3;
+}
+
+.mini-anim-sad {
+  animation: mini-droop 0.5s ease-out forwards;
+}
+
+.mini-anim-party {
+  animation: mini-party 0.4s ease-in-out 5;
+}
+
+.mini-anim-sleep {
+  opacity: 0.7;
+}
+
+.mini-anim-tug {
+  animation: mini-tug 0.4s ease-in-out 4;
+}
+
+@keyframes mini-jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes mini-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+@keyframes mini-droop {
+  to { transform: translateY(3px) rotate(-5deg); }
+}
+
+@keyframes mini-party {
+  0%, 100% { transform: rotate(0) scale(1); }
+  25% { transform: rotate(-10deg) scale(1.1); }
+  75% { transform: rotate(10deg) scale(1.1); }
+}
+
+@keyframes mini-tug {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+/* Speech bubble */
+.mini-bubble {
+  position: absolute;
+  top: -20px;
+  right: 10px;
+  font-size: 1.2rem;
+  line-height: 1;
+  animation: mini-bubble-in 0.3s ease-out;
+  pointer-events: none;
+}
+
+@keyframes mini-bubble-in {
+  from { opacity: 0; transform: scale(0.5) translateY(5px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Feed button */
+.mini-feed-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 182, 193, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 1rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  animation: pulse 1.5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-feed-btn:active {
+  background: rgba(255, 255, 255, 0.4);
+}

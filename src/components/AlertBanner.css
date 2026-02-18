@@ -1,0 +1,27 @@
+.alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  animation: slideDown 0.3s ease-out;
+  z-index: 20;
+}
+
+.alert-hungry {
+  background: #FFF3CD;
+  color: #856404;
+}
+
+.alert-sick {
+  background: var(--danger);
+  color: white;
+  animation: slideDown 0.3s ease-out, pulse 1.5s ease-in-out infinite;
+}
+
+.alert-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}

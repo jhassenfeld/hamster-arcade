@@ -1,0 +1,83 @@
+/* Size variants */
+.hamster-sprite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Body container — holds the image and accessories */
+.hamster-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamster-small .hamster-body { width: 100px; height: 110px; }
+.hamster-medium .hamster-body { width: 160px; height: 176px; }
+.hamster-large .hamster-body { width: 320px; height: 352px; }
+
+/* The actual hamster PNG */
+.hamster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Name */
+.hamster-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hamster-large .hamster-name {
+  font-size: 1rem;
+}
+
+/* Accessories — positioned over the hamster image */
+.accessory {
+  position: absolute;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.hamster-small .accessory { font-size: 12px; }
+.hamster-medium .accessory { font-size: 20px; }
+.hamster-large .accessory { font-size: 36px; }
+
+.accessory-hat { top: -10%; left: 50%; transform: translateX(-50%); }
+.accessory-bowtie { bottom: 15%; left: 50%; transform: translateX(-50%); }
+.accessory-sunglasses { top: 28%; left: 50%; transform: translateX(-50%); }
+.accessory-cape { top: 20%; right: -10%; }
+
+/* Expression animations */
+.expr-happy .hamster-body,
+.expr-excited .hamster-body {
+  animation: bounce 0.6s ease-in-out infinite;
+}
+
+.expr-worried .hamster-body {
+  animation: wiggle 0.4s ease-in-out infinite;
+}
+
+.expr-sick .hamster-img {
+  opacity: 0.7;
+  filter: saturate(0.4) hue-rotate(60deg);
+}
+
+.expr-dead .hamster-img {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+.health-dead .hamster-img {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
