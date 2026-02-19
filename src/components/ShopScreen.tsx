@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useGameStore, type ItemType } from '../state/gameStore'
+import { useGameStore } from '../state/gameStore'
 import { SHOP_ITEMS, type ShopItem, getHamsterTokenPrice, getToyHappiness } from '../data/shopItems'
 import CoinCounter from './CoinCounter'
 import './ShopScreen.css'
