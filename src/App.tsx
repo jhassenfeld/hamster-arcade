@@ -6,9 +6,9 @@ import HamsterDetail from './components/HamsterDetail'
 import GameWrapper from './games/GameWrapper'
 
 // One-time save reset for v2 item migration
-if (!localStorage.getItem('hamster-arcade-v2-reset')) {
+if (!localStorage.getItem('hamster-arcade-v3-reset')) {
   localStorage.removeItem('hamster-arcade-save')
-  localStorage.setItem('hamster-arcade-v2-reset', '1')
+  localStorage.setItem('hamster-arcade-v3-reset', '1')
   window.location.reload()
 }
 
