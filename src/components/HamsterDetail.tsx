@@ -165,10 +165,15 @@ export default function HamsterDetail() {
                   return (
                     <button
                       key={toy.id}
-                      className="btn btn-small detail-food-btn"
+                      className="btn btn-small detail-food-btn detail-item-btn"
                       onClick={() => playWithToy(hamster.id, toy.id, boost)}
                     >
-                      {shopInfo?.icon || '🎮'} {toy.name} ({toy.quantity}) +{boost}😊
+                      {shopInfo?.imageSrc ? (
+                        <img src={shopInfo.imageSrc} alt={toy.name} className="detail-item-img" />
+                      ) : (
+                        shopInfo?.icon || '🎮'
+                      )}
+                      {' '}{toy.name} ({toy.quantity}) +{boost}😊
                     </button>
                   )
                 })}

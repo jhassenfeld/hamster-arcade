@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware'
 export type HamsterHealth = 'healthy' | 'hungry' | 'sick' | 'dead'
 export type HamsterExpression = 'happy' | 'neutral' | 'watching' | 'excited' | 'worried' | 'sick' | 'dead'
 export type ScreenName = 'hub' | 'arcade' | 'shop' | 'hamster-detail'
-export type ItemType = 'food' | 'toy' | 'accessory' | 'hamster-token'
+export type ItemType = 'food' | 'toy' | 'accessory' | 'furniture' | 'decoration' | 'hamster-token'
 
 export interface Hamster {
   id: string
@@ -40,6 +40,8 @@ interface GameState {
   selectedHamsterId: string | null
   lastSavedAt: number
   toyPositions: Record<string, { left: number; top: number }>  // toy id → % position
+  furniturePositions: Record<string, { left: number; top: number }>
+  decorationPositions: Record<string, { left: number; top: number }>
   hamsterPositions: Record<string, { left: number; top: number }>  // hamster id → % position
 }
 
@@ -81,6 +83,8 @@ interface GameActions {
 
   // Room decoration
   setToyPosition: (toyId: string, left: number, top: number) => void
+  setFurniturePosition: (id: string, left: number, top: number) => void
+  setDecorationPosition: (id: string, left: number, top: number) => void
   setHamsterPosition: (hamsterId: string, left: number, top: number) => void
 }
 
@@ -136,6 +140,8 @@ export const useGameStore = create<GameState & GameActions>()(
       selectedHamsterId: null,
       lastSavedAt: Date.now(),
       toyPositions: {},
+      furniturePositions: {},
+      decorationPositions: {},
       hamsterPositions: {},
 
       // Navigation
@@ -408,6 +414,18 @@ export const useGameStore = create<GameState & GameActions>()(
         }))
       },
 
+      setFurniturePosition: (id, left, top) => {
+        set((s) => ({
+          furniturePositions: { ...s.furniturePositions, [id]: { left, top } },
+        }))
+      },
+
+      setDecorationPosition: (id, left, top) => {
+        set((s) => ({
+          decorationPositions: { ...s.decorationPositions, [id]: { left, top } },
+        }))
+      },
+
       setHamsterPosition: (hamsterId, left, top) => {
         set((s) => ({
           hamsterPositions: { ...s.hamsterPositions, [hamsterId]: { left, top } },
@@ -426,6 +444,8 @@ export const useGameStore = create<GameState & GameActions>()(
         selectedHamsterId: state.selectedHamsterId,
         lastSavedAt: state.lastSavedAt,
         toyPositions: state.toyPositions,
+        furniturePositions: state.furniturePositions,
+        decorationPositions: state.decorationPositions,
         hamsterPositions: state.hamsterPositions,
       }),
       onRehydrateStorage: () => {

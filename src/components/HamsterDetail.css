@@ -160,6 +160,19 @@
   font-size: 0.8rem;
 }
 
+.detail-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.detail-item-img {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
 .detail-empty {
   font-size: 0.85rem;
   color: var(--text);

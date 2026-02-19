@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { useGameStore } from '../state/gameStore'
+import { useGameStore, type ItemType } from '../state/gameStore'
 import { SHOP_ITEMS, type ShopItem, getHamsterTokenPrice, getToyHappiness } from '../data/shopItems'
 import CoinCounter from './CoinCounter'
 import './ShopScreen.css'
 
-type Tab = 'food' | 'toy' | 'accessory' | 'hamster-token'
+type Tab = 'food' | 'toy' | 'accessory' | 'furniture' | 'decoration' | 'hamster-token'
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: 'food', label: 'Food', icon: '🥕' },
   { id: 'toy', label: 'Toys', icon: '🎡' },
-  { id: 'accessory', label: 'Accessories', icon: '🎩' },
+  { id: 'accessory', label: 'Wearables', icon: '🎩' },
+  { id: 'furniture', label: 'Furniture', icon: '🛋️' },
+  { id: 'decoration', label: 'Decor', icon: '🖼️' },
   { id: 'hamster-token', label: 'Hamsters', icon: '🐹' },
 ]
 
@@ -30,7 +32,6 @@ export default function ShopScreen() {
     if (!spendCoins(item.price)) return
 
     if (item.type === 'toy') {
-      // Toys boost happiness for all living hamsters
       const boost = getToyHappiness(item.id)
       const state = useGameStore.getState()
       useGameStore.setState({
@@ -40,10 +41,9 @@ export default function ShopScreen() {
             : h
         ),
       })
-      addInventoryItem({ id: item.id, type: item.type, name: item.name })
-    } else {
-      addInventoryItem({ id: item.id, type: item.type, name: item.name })
     }
+
+    addInventoryItem({ id: item.id, type: item.type, name: item.name })
   }
 
   const handleBuyHamster = () => {
@@ -88,12 +88,21 @@ export default function ShopScreen() {
             const owned = getOwnedQty(item.id)
             return (
               <div key={item.id} className="shop-item card">
-                <span className="shop-item-icon">{item.icon}</span>
+                <span className="shop-item-icon">
+                  {item.imageSrc ? (
+                    <>
+                      <img src={item.imageSrc} alt={item.name} className="shop-item-img" />
+                      {owned > 0 && <span className="shop-item-qty-badge">{owned}</span>}
+                    </>
+                  ) : (
+                    item.icon
+                  )}
+                </span>
                 <div className="shop-item-info">
                   <h3>{item.name}</h3>
                   <p className="shop-item-desc">{item.description}</p>
                   {item.effect && <p className="shop-item-effect">{item.effect}</p>}
-                  {owned > 0 && <p className="shop-item-owned">Owned: {owned}</p>}
+                  {!item.imageSrc && owned > 0 && <p className="shop-item-owned">Owned: {owned}</p>}
                 </div>
                 <button
                   className="btn btn-small"

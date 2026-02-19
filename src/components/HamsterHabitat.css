@@ -172,3 +172,11 @@
   transform: translate(-50%, -50%) scale(1.12);
   transition: filter 0.1s ease;
 }
+
+/* PNG items inside habitat toys */
+.habitat-item-img {
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: contain;
+  pointer-events: none;
+}

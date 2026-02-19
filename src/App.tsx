@@ -5,6 +5,13 @@ import ShopScreen from './components/ShopScreen'
 import HamsterDetail from './components/HamsterDetail'
 import GameWrapper from './games/GameWrapper'
 
+// One-time save reset for v2 item migration
+if (!localStorage.getItem('hamster-arcade-v2-reset')) {
+  localStorage.removeItem('hamster-arcade-save')
+  localStorage.setItem('hamster-arcade-v2-reset', '1')
+  window.location.reload()
+}
+
 function App() {
   const currentScreen = useGameStore((s) => s.currentScreen)
   const currentGame = useGameStore((s) => s.currentGame)

@@ -5,12 +5,20 @@ import HamsterSprite from './HamsterSprite'
 import HungerBar from './HungerBar'
 import './HamsterHabitat.css'
 
-// Default positions for new toys (% based)
-const DEFAULT_TOY_POSITIONS: { left: number; top: number }[] = [
+// Default positions for placed items (% based)
+const DEFAULT_ITEM_POSITIONS: { left: number; top: number }[] = [
   { left: 75, top: 55 },
   { left: 15, top: 50 },
   { left: 45, top: 60 },
   { left: 30, top: 45 },
+  { left: 85, top: 45 },
+  { left: 60, top: 50 },
+  { left: 20, top: 60 },
+  { left: 50, top: 45 },
+  { left: 10, top: 55 },
+  { left: 70, top: 60 },
+  { left: 40, top: 50 },
+  { left: 90, top: 55 },
 ]
 
 // Default hamster positions spread across the floor
@@ -21,12 +29,26 @@ function getDefaultHamsterPosition(index: number, total: number): { left: number
 
 const DRAG_THRESHOLD = 6 // pixels before a mousedown becomes a drag
 
+interface PlacedItem {
+  id: string
+  name: string
+  icon: string
+  imageSrc?: string
+  left: number
+  top: number
+  category: 'toy' | 'furniture' | 'decoration'
+}
+
 export default function HamsterHabitat() {
   const hamsters = useGameStore((s) => s.hamsters)
   const inventory = useGameStore((s) => s.inventory)
   const toyPositions = useGameStore((s) => s.toyPositions)
+  const furniturePositions = useGameStore((s) => s.furniturePositions)
+  const decorationPositions = useGameStore((s) => s.decorationPositions)
   const hamsterPositions = useGameStore((s) => s.hamsterPositions)
   const setToyPosition = useGameStore((s) => s.setToyPosition)
+  const setFurniturePosition = useGameStore((s) => s.setFurniturePosition)
+  const setDecorationPosition = useGameStore((s) => s.setDecorationPosition)
   const setHamsterPosition = useGameStore((s) => s.setHamsterPosition)
   const navigate = useGameStore((s) => s.navigate)
   const selectHamster = useGameStore((s) => s.selectHamster)
@@ -35,21 +57,41 @@ export default function HamsterHabitat() {
   const livingHamsters = hamsters.filter(h => h.health !== 'dead')
   const deadHamsters = hamsters.filter(h => h.health === 'dead')
 
-  // Get unique toy types from inventory
-  const ownedToys = inventory
-    .filter(i => i.type === 'toy')
-    .map((i, idx) => {
-      const shopInfo = SHOP_ITEMS.find(s => s.id === i.id)
-      const saved = toyPositions[i.id]
-      const fallback = DEFAULT_TOY_POSITIONS[idx % DEFAULT_TOY_POSITIONS.length]
-      return {
-        id: i.id,
-        icon: shopInfo?.icon || '🎮',
-        name: shopInfo?.name || i.name,
-        left: saved?.left ?? fallback.left,
-        top: saved?.top ?? fallback.top,
-      }
-    })
+  // Build list of all placed items from inventory
+  const placedItems: PlacedItem[] = []
+  let posIndex = 0
+
+  const addItems = (type: 'toy' | 'furniture' | 'decoration', positions: Record<string, { left: number; top: number }>) => {
+    inventory
+      .filter(i => i.type === type)
+      .forEach((i) => {
+        const shopInfo = SHOP_ITEMS.find(s => s.id === i.id)
+        const saved = positions[i.id]
+        const fallback = DEFAULT_ITEM_POSITIONS[posIndex % DEFAULT_ITEM_POSITIONS.length]
+        posIndex++
+        placedItems.push({
+          id: i.id,
+          name: shopInfo?.name || i.name,
+          icon: shopInfo?.icon || '📦',
+          imageSrc: shopInfo?.imageSrc,
+          left: saved?.left ?? fallback.left,
+          top: saved?.top ?? fallback.top,
+          category: type,
+        })
+      })
+  }
+
+  addItems('furniture', furniturePositions)
+  addItems('decoration', decorationPositions)
+  addItems('toy', toyPositions)
+
+  const getSaveFunction = (category: 'toy' | 'furniture' | 'decoration') => {
+    switch (category) {
+      case 'toy': return setToyPosition
+      case 'furniture': return setFurniturePosition
+      case 'decoration': return setDecorationPosition
+    }
+  }
 
   const handleClick = (hamster: Hamster) => {
     selectHamster(hamster.id)
@@ -90,7 +132,6 @@ export default function HamsterHabitat() {
     const onMove = (e: MouseEvent | TouchEvent) => {
       const { x, y } = getClientPos(e)
 
-      // Check if we've moved enough to start dragging
       if (!isDragging) {
         const dx = x - startPos.x
         const dy = y - startPos.y
@@ -110,7 +151,6 @@ export default function HamsterHabitat() {
       el.classList.remove('dragging')
 
       if (!isDragging) {
-        // It was a click, not a drag
         if (onClickInstead) onClickInstead()
       } else {
         const { x, y } = 'changedTouches' in e
@@ -140,19 +180,26 @@ export default function HamsterHabitat() {
       <div className="habitat-window" />
       <div className="habitat-baseboard" />
 
-      {/* Owned toy decorations — draggable */}
-      {ownedToys.map((toy) => (
-        <div
-          key={toy.id}
-          className="habitat-toy"
-          style={{ left: `${toy.left}%`, top: `${toy.top}%` }}
-          title={`${toy.name} — drag to move`}
-          onMouseDown={(e) => startDrag(toy.id, '.habitat-toy', setToyPosition, null, e)}
-          onTouchStart={(e) => startDrag(toy.id, '.habitat-toy', setToyPosition, null, e)}
-        >
-          {toy.icon}
-        </div>
-      ))}
+      {/* All placed items — draggable */}
+      {placedItems.map((item) => {
+        const saveFn = getSaveFunction(item.category)
+        return (
+          <div
+            key={`${item.category}-${item.id}`}
+            className="habitat-toy"
+            style={{ left: `${item.left}%`, top: `${item.top}%` }}
+            title={`${item.name} — drag to move`}
+            onMouseDown={(e) => startDrag(item.id, '.habitat-toy', saveFn, null, e)}
+            onTouchStart={(e) => startDrag(item.id, '.habitat-toy', saveFn, null, e)}
+          >
+            {item.imageSrc ? (
+              <img src={item.imageSrc} alt={item.name} className="habitat-item-img" draggable={false} />
+            ) : (
+              item.icon
+            )}
+          </div>
+        )
+      })}
 
       {/* Living hamsters — draggable, click opens detail */}
       {livingHamsters.map((h, i) => {
